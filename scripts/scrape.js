@@ -37,7 +37,7 @@ var scrape = function () {
 
                 // Save these results in an object that we'll push into the results array we defined earlier
                 results.push({
-                    title: title,
+                    headline: title,
                     summary: summary,
                     link: link
 

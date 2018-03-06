@@ -1,0 +1,13 @@
+<ul>
+	{{#each headlines}}
+	<li>
+		<a href= '/headline/{{_id}}'>
+			<h1>{{headline}}</h1>
+		</a>
+		<p>Summary: {{summary}}</p>
+		<p>Headline link: {{link}}</p>
+		<br>
+	</li>
+
+	{{/each}}
+</ul>

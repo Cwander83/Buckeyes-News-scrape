@@ -1,11 +1,11 @@
 module.exports = function () {
-    const router = require("express").Router();
+    var router = require("express").Router();
 
     var apiRoutes = require("./api.js")();
-    //var viewRoutes = require("./view");
+    router.use("/api", apiRoutes);
 
-    router.use("/", apiRoutes);
-    //router.use("/", viewRoutes);
+    var viewRoutes = require("./view.js")();
+    router.use("/", viewRoutes);
 
     return router;
 }

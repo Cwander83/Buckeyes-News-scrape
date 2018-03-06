@@ -33,13 +33,13 @@ var models = require("./models");
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
-//app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public"));
 
-// // Connect Handlebars to our Express app
-// app.engine("handlebars", exphbs({
-//   defaultLayout: 'main'
-// }));
-// app.set('view engine', 'handlebars');
+// Connect Handlebars to our Express app
+app.engine("handlebars", exphbs({
+  defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 // Use bodyParser in out app
 app.use(bodyParser.urlencoded({
@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.json());
 
 //Routes 
-const routes = require("./routes")();
+var routes = require("./routes")();
 app.use("/", routes);
 
 

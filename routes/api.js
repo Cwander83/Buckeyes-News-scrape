@@ -5,7 +5,7 @@ module.exports = function () {
     var Headline = require("../models").Headline;
 
 
-    router.get("/api/headlines", function (req, res) {
+    router.get("/headlines", function (req, res) {
         Headline.find({})
 
             .then(function (dbHeadlines) {
@@ -17,7 +17,7 @@ module.exports = function () {
             });
     });
 
-    router.get("/api/headlines/:id", function (req, res) {
+    router.get("/headlines/:id", function (req, res) {
 
         Headline.findById(req.params.id).then(function (dbHeadlines) {
                 res.json(dbHeadlines);
@@ -27,7 +27,7 @@ module.exports = function () {
             });
     });
 
-    router.put("/api/headlines", function (req, res) {
+    router.put("/headlines", function (req, res) {
         Headline.findByIdAndUpdate(req.body._id, {
                 $set: req.body
             })
@@ -39,7 +39,7 @@ module.exports = function () {
             });
     });
 
-    router.post("/api/headlines", function (req, res) {
+    router.post("/headlines", function (req, res) {
         Headline.create(req.body).then(function (dbHeadlines) {
 
                 res.json(dbHeadlines);
@@ -49,7 +49,7 @@ module.exports = function () {
             });
     });
 
-    router.delete("/api/headlines", function (req, res) {
+    router.delete("/headlines", function (req, res) {
 
         Headline.findByIdAndRemove(req.body._id).then(function (dbHeadlines) {
                 res.json("deleted")
@@ -58,5 +58,6 @@ module.exports = function () {
                 res.json(err);
             });
     });
+
     return router;
 };
