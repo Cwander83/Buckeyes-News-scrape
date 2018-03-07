@@ -1,7 +1,9 @@
-body {
-    display: flex;
-}
+
 
 #jumbotron {
     margin: 0;
+}
+
+.card {
+    margin: 20px;
 }

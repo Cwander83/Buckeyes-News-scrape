@@ -1,0 +1,14 @@
+<img src="assets/images/buckeyextra_header.png" />
+<div id="jumbotron" class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Ohio State Buckeyes Scrapatron</h1>
+        <p class="lead">This is a website to scrape articles from </p>
+        <a href="http://www.espn.com/college-football/team/_/id/194/ohio-state-buckeyes">ESPN home for the Ohio State Buckeyes Football Team!!</a>
+       
+        <button id="scrapeBtn" class="btn btn-inverse btn-large">
+            <i class="icon-cut"></i> SCRAPE THE ARTICLES HERE</button>
+    </div>
+
+    {{#each headlines}} 
+        {{>articles this}} 
+    {{/each}}

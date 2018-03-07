@@ -1,18 +1,16 @@
 console.log("headline-controller connected");
 
-
-
 // bring in the Headline and Note mongoose models
 var Headline = require('../models').Headline;
 var Note = require('../models').Note;
 
 module.exports = {
-  FindAll: function (req, res) {
+  findAll: function (req, res) {
     Headline.find({})
 
-      .then(function (dbHeadlines) {
+      .then(function (data) {
 
-        res.json(dbHeadlines)
+        res.json(data)
       })
       .catch(function (err) {
         res.json(err);
@@ -22,8 +20,8 @@ module.exports = {
 
   findOne: function (req, res) {
 
-    Headline.findById(req.params.id).then(function (dbHeadlines) {
-        res.json(dbHeadlines);
+    Headline.findById(req.params.id).then(function (data) {
+        res.json(data);
       })
       .catch(function (err) {
         res.json(err);
@@ -31,10 +29,11 @@ module.exports = {
   },
 
   update: function (req, res) {
+
     Headline.findByIdAndUpdate(req.body._id, {
         $set: req.body
       })
-      .then(function (dbHeadlines) {
+      .then(function (data) {
         res.json("Updated");
       })
       .catch(function (err) {
@@ -43,9 +42,9 @@ module.exports = {
   },
 
   create: function (req, res) {
-    Headline.create(req.body).then(function (dbHeadlines) {
+    Headline.create(req.body).then(function (data) {
 
-        res.json(dbHeadlines);
+        res.json(data);
       })
       .catch(function (err) {
         res.json(err);
@@ -53,12 +52,11 @@ module.exports = {
   },
 
   destroy: function (req, res) {
-
-    Headline.findByIdAndRemove(req.body._id).then(function (dbHeadlines) {
+    Headline.findByIdAndRemove(req.body._id).then(function (data) {
         res.json("deleted")
       })
       .catch(function (err) {
         res.json(err);
       });
   }
-}
+};

@@ -17,7 +17,7 @@ var scrape = function (url, callback) {
             var $ = cheerio.load(body);
             // empty object
             var article = {};
-            
+
             $("div.item-info-wrap").each((i, element) => {
 
                 // title of article scraped
@@ -29,6 +29,7 @@ var scrape = function (url, callback) {
                 // the url link for the article scraped
                 var link = $(element).children("h1").children("a").attr("href");
 
+
                 if (title !== "" && summary !== "") {
                     var tidyTitle = title.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
                     var tidySummary = summary.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
@@ -37,6 +38,7 @@ var scrape = function (url, callback) {
                     article[i] = [tidyTitle];
                     article[i].push(tidySummary);
                     article[i].push(tidyLink);
+
                 }
             });
 

@@ -12,10 +12,10 @@ module.exports = function () {
     router.get("/", function (req, res) {
         Headline.find({})
 
-            .then(function (dbHeadlines) {
+            .then(function (data) {
 
-                res.render("saved", {
-                    headlines: dbHeadlines
+                res.render("home", {
+                    headlines: data
                 });
             })
             .catch(function (err) {

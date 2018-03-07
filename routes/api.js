@@ -9,7 +9,7 @@ module.exports = function () {
     var notesController = require('../controllers/note.js');
 
 
-    router.get("/headlines", headlinesController.FindAll);
+    router.get("/headlines", headlinesController.findAll);
 
     router.get("/headlines/:id", headlinesController.findOne);
 
