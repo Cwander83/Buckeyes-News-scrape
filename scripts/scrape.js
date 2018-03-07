@@ -1,53 +1,50 @@
-// scrape script
+// // scrape script
 console.log("scrape-script connected");
 
-const cheerio = require("cheerio");
-const axios = require("axios");
+var cheerio = require("cheerio");
+var request = require("request");
 
-// variable to store the url we will be scraping
-var url = `http://www.espn.com/college-football/team/_/id/194/ohio-state-buckeyes`;
-
-var scrape = function () {
-    // Use axios to get the html from the above link
-    axios
-        .get(url)
-        // Our promise-based response
-        .then((response) => {
-            // Load the HTML into cheerio and save it to a variable
-            // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
-            const $ = cheerio.load(response.data);
-            //console.log(response.data);
-            // An empty array to save the data that we'll scrape
-            let results = [];
+// // variable to store the url we will be scraping
+var websiteUrl = `http://www.espn.com/college-football/team/_/id/194/ohio-state-buckeyes`;
 
 
-            // (i: iterator. element: the current element)
+var scrape = function (url, callback) {
+
+    if (url == websiteUrl) {
+
+        request(url, function (err, res, body) {
+
+            var $ = cheerio.load(body);
+            // empty object
+            var article = {};
+            
             $("div.item-info-wrap").each((i, element) => {
 
-                //console.log(element);
+                // title of article scraped
+                var title = $(element).children("h1").children("a.realStory").text();
 
-                // text of the element in a "title" variable
-                const title = $(element).children("h1").children("a.realStory").text();
-
-                // text of the summary
-                const summary = $(element).children("p").text();
+                // the summary
+                var summary = $(element).children("p").text();
 
                 // the url link for the article scraped
-                const link = $(element).children("h1").children("a").attr("href");
+                var link = $(element).children("h1").children("a").attr("href");
 
-                // Save these results in an object that we'll push into the results array we defined earlier
-                results.push({
-                    headline: title,
-                    summary: summary,
-                    link: link
+                if (title !== "" && summary !== "") {
+                    var tidyTitle = title.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
+                    var tidySummary = summary.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
+                    var tidyLink = link.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
 
-                });
+                    article[i] = [tidyTitle];
+                    article[i].push(tidySummary);
+                    article[i].push(tidyLink);
+                }
             });
-            // Log the results once you've looped through each of the elements found with cheerio
-            console.log(JSON.stringify(results, null, 2));
-        })
-        .catch(error => {
-            console.log(error);
+
+            console.log(JSON.stringify(article, null, 2));
+
+            callback(article);
         });
+    };
 };
+
 module.exports = scrape;

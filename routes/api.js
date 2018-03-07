@@ -2,62 +2,22 @@ console.log("api route connected");
 
 module.exports = function () {
     var router = require("express").Router();
+    var scrape = require('../scripts/scrape.js');
     var Headline = require("../models").Headline;
+    var fetchController = require("../controllers/fetch.js")
+    var headlinesController = require('../controllers/headline.js');
+    var notesController = require('../controllers/note.js');
 
 
-    router.get("/headlines", function (req, res) {
-        Headline.find({})
+    router.get("/headlines", headlinesController.FindAll);
 
-            .then(function (dbHeadlines) {
+    router.get("/headlines/:id", headlinesController.findOne);
 
-                res.json(dbHeadlines)
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
-    });
+    router.put("/headlines", headlinesController.update);
 
-    router.get("/headlines/:id", function (req, res) {
+    router.post("/headlines", headlinesController.create);
 
-        Headline.findById(req.params.id).then(function (dbHeadlines) {
-                res.json(dbHeadlines);
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
-    });
-
-    router.put("/headlines", function (req, res) {
-        Headline.findByIdAndUpdate(req.body._id, {
-                $set: req.body
-            })
-            .then(function (dbHeadlines) {
-                res.json("Updated");
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
-    });
-
-    router.post("/headlines", function (req, res) {
-        Headline.create(req.body).then(function (dbHeadlines) {
-
-                res.json(dbHeadlines);
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
-    });
-
-    router.delete("/headlines", function (req, res) {
-
-        Headline.findByIdAndRemove(req.body._id).then(function (dbHeadlines) {
-                res.json("deleted")
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
-    });
+    router.delete("/headlines", headlinesController.destroy);
 
     return router;
 };

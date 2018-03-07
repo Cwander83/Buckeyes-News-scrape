@@ -7,8 +7,9 @@ var Schema = mongoose.Schema;
 
 var NoteSchema = new Schema({
 
-    title: {
-        type: String
+    _headlineId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Headline'
     },
     body: {
         type: String
