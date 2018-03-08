@@ -17,14 +17,14 @@ exports.fetch = function () {
         for (var i in scrapedData) {
             // checks for duplicates
             renderArticle(i);
-        }
+        };
 
         function renderArticle(current) {
             // look for a match by the headline of the current article
             Headline.findOne({
                 'headline': scrapedData[current][0]
             }, function (err, res) {
-                
+
                 if (err) {
                     console.log(err);
                 }
@@ -38,18 +38,16 @@ exports.fetch = function () {
                     });
                     // save new entry to db
                     headlineEntry.save(function (err) {
-                        
+
                         if (err) {
                             console.log(err);
-                        }
-                        
-                        else {
+                        } else {
                             console.log('successfully added');
-                        }
+                        };
                     });
-                }
+                };
             });
-        }
+        };
 
     });
 };

@@ -8,7 +8,16 @@
         <button id="scrapeBtn" class="btn btn-inverse btn-large">
             <i class="icon-cut"></i> SCRAPE THE ARTICLES HERE</button>
     </div>
-
+<div id="articlesContainer">
     {{#each headlines}} 
+
         {{>articles this}} 
+
     {{/each}}
+
+    {{#each notes}}
+
+        {{> notes}}
+
+    {{/each}}
+    </div>

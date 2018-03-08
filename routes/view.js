@@ -9,19 +9,25 @@ module.exports = function () {
     var notesController = require('../controllers/note.js');
 
 
+
     router.get("/", function (req, res) {
-        Headline.find({})
 
-            .then(function (data) {
-
-                res.render("home", {
-                    headlines: data
-                });
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
+        res.render("home");
     });
+
+    // router.get("/", function (req, res) {
+    //     Headline.find({})
+
+    //         .then(function (data) {
+
+    //             res.render("home", {
+    //                 headlines: data
+    //             });
+    //         })
+    //         .catch(function (err) {
+    //             res.json(err);
+    //         });
+    // });
 
     // testing the scrape        // IT WORKS IT WORKS YAYY!!
     router.get('/test', function (req, res) {
@@ -32,12 +38,13 @@ module.exports = function () {
         });
     });
 
-router.post("/fetch", function(req, res){
+    router.post("/fetch", function (req, res) {
 
-    fetchController.fetch();
-    
-    res.send("fetched!!")
-})
+        fetchController.fetch();
+
+        res.send("fetched!!")
+
+    });
 
     // router.get("/headline/:id", function (req, res) {
 
