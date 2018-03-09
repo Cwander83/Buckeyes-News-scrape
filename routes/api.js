@@ -2,8 +2,7 @@ console.log("api route connected");
 
 module.exports = function () {
     var router = require("express").Router();
-    var scrape = require('../scripts/scrape.js');
-    var Headline = require("../models").Headline;
+
     var fetchController = require("../controllers/fetch.js")
     var headlinesController = require('../controllers/headline.js');
     var notesController = require('../controllers/note.js');
@@ -15,7 +14,14 @@ module.exports = function () {
         headlinesController.check(function (data) {
 
             res.json(data);
+        });
+    });
 
+    router.post("/gather", function (req, res) {
+
+        notesController.gather(req.body, function (data) {
+
+            res.json(data);
         });
     });
 
@@ -24,7 +30,6 @@ module.exports = function () {
         notesController.save(req.body, function (data) {
 
             res.json(data);
-
         });
     });
 
@@ -33,12 +38,8 @@ module.exports = function () {
         notesController.delete(req.body, function (data) {
 
             res.json(data);
-
         });
     });
 
     return router;
 };
-
-
-
