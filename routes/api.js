@@ -9,15 +9,36 @@ module.exports = function () {
     var notesController = require('../controllers/note.js');
 
 
-    router.get("/headlines", headlinesController.findAll);
 
-    router.get("/headlines/:id", headlinesController.findOne);
+    router.get("/check", function (req, res) {
 
-    router.put("/headlines", headlinesController.update);
+        headlinesController.check(function (data) {
 
-    router.post("/headlines", headlinesController.create);
+            res.json(data);
 
-    router.delete("/headlines", headlinesController.destroy);
+        });
+    });
+
+    router.post("/save", function (req, res) {
+
+        notesController.save(req.body, function (data) {
+
+            res.json(data);
+
+        });
+    });
+
+    router.delete("/delete", function (req, res) {
+
+        notesController.delete(req.body, function (data) {
+
+            res.json(data);
+
+        });
+    });
 
     return router;
 };
+
+
+

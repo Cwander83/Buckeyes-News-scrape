@@ -3,35 +3,19 @@ console.log("frontendJS connnected");
 //var articleContainer = $(".articleContainer");
 $(document).ready(function () {
 
-    $("#articleContainer").hide()
+    $("#articlesContainer").hide()
 
 
-    //renderCards();
+    renderCards();
 
 
     $("#scrapeBtn").on("click", function (data) {
-        fetchHeadline();
+        fetchHeadline(data);
 
     });
 
 
 })
-
-var renderCards = function (data) {
-    $.ajax({
-            method: "GET",
-            url: "/api/headlines"
-        })
-        .then(function (data) {
-            var pulledData = data;
-            console.log(`pulledData: ${pulledData[1]}`);
-            $("{{>articles this}}").append(pulledData);
-
-
-
-        })
-};
-
 
 var fetchHeadline = function () {
     $.ajax({
@@ -40,6 +24,21 @@ var fetchHeadline = function () {
         })
         .done(function () {
             renderCards()
-            $("#articleContainer").show()
-        })
-}
+            $("#articlesContainer").show()
+        });
+};
+
+var renderCards = function () {
+    $.getJSON("/api/check", function (data) {
+        for (var i = 0; i < data.length; i++) {
+
+            console.log(JSON.stringify(data[0], null, 2));
+
+            $("#articlesContainer").append(`<div class="card"><div class="card-header"><h1>${data[i].headline}</div><div class="card-body"><blockquote class="blockquote mb-0"><p><h4>Summary: </h4>${data[i].summary}</p><footer class="blockquote-footer">Article Link: <cite title="Source Title"><a href="${data[i].link}">${data[i].link}</a></cite></footer></blockquote></div></div>`)
+        }
+
+
+    })
+
+
+};

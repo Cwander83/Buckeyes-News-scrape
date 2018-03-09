@@ -46,20 +46,5 @@ module.exports = function () {
 
     });
 
-    // router.get("/headline/:id", function (req, res) {
-
-    //     Headline.findById(req.params.id)
-
-    //         .then(function (dbHeadlines) {
-
-    //             res.render();
-    //         })
-    //         .catch(function (err) {
-    //             res.json(err);
-    //         });
-    // });
-    // router.get("/notes", function (req, res) {
-    //     res.render()
-    // });
     return router;
 };
